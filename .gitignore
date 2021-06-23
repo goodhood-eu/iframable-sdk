@@ -1,0 +1,22 @@
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+dist/
+
+# NVM builds
+nvm/
+node_modules/*
+
+# Users Environment Variables
+.lock-wscript
+.idea
+.scripts
+
+# MacOS bullshit
+.DS_Store

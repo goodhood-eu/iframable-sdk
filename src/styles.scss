@@ -1,0 +1,22 @@
+#nebenan-widget {
+  width: 100%;
+  max-width: 900px;
+  height: 594px;
+
+  @media (max-width: 745px) {
+    height: 614px;
+  }
+
+  @media (max-width: 620px) {
+    height: 634px;
+  }
+
+  @media (max-width: 400px) {
+    height: 674px;
+  }
+}
+
+#nebenan_iframe {
+  width: 100%;
+  height: 100%;
+}

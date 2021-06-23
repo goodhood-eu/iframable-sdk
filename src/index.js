@@ -8,7 +8,7 @@ const NebenanInit = (config) => {
 
   const getUTM = (utm) => (
     utm
-      ? `?${Object.keys(config.utm).map(key => `${key}=${config.utm[key]}`).join('&')}`
+      ? `?${Object.keys(config.utm).map(key => `${key}=${encodeURI(config.utm[key])}`).join('&')}`
       : ''
   );
 

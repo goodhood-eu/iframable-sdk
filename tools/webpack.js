@@ -1,17 +1,30 @@
+const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { version } = require('../package');
 
 module.exports = {
   mode: 'production',
-  entry: ['./src/index.js', './src/styles.scss'],
+  entry: {
+    main: './src/index.js',
+    styles: './src/styles.scss',
+  },
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: '[name].js',
+    filename: `[name]-${version}.js`,
+    library: {
+      name: 'Nebenan',
+      type: 'umd',
+      export: 'default',
+    },
+    umdNamedDefine: true,
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[name].css',
+      filename: `[name]-${version}.css`,
+    }),
+    new webpack.DefinePlugin({
+      __VERSION: JSON.stringify(version),
     }),
   ],
   module: {
@@ -21,10 +34,7 @@ module.exports = {
         exclude: /(node_modules)/,
         use: {
           loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
-          }
-        }
+        },
       },
       {
         test: /\.scss$/,
@@ -48,7 +58,7 @@ module.exports = {
             loader: 'sass-loader',
           },
         ],
-      }
+      },
     ],
-  }
+  },
 };

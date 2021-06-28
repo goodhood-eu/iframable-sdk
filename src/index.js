@@ -1,48 +1,102 @@
-import { version } from '../package';
+import {
+  DEFAULT_HOST,
+  DEFAULT_WRAPPER_SELECTOR,
+  VIEWPORT_S,
+  VIEWPORT_M,
+  VIEWPORT_L,
+  BREAKPOINTS_TO_CLASS,
+  WRAPPER_CLASSNAME,
+} from './constants';
 
-const NebenanInit = (config) => {
-  if (!config) {
-    console.error('[Nebenan]: initialisation config is missing!');
-    return;
+export default class Nebenan {
+  constructor(config) {
+    this.config = config;
+    this.wrapper = null;
+    this.defaultClassNames = '';
+
+    this._addClass = this._addClass.bind(this);
+    this._resizer = this._resizer.bind(this);
   }
 
-  const getUTM = (utm) => (
-    utm
-      ? `?${Object.keys(config.utm).map(key => `${key}=${encodeURI(config.utm[key])}`).join('&')}`
-      : ''
-  );
+  _getUTM(utm) {
+    return (utm
+      ? `?${Object.keys(utm).map((key) => `${key}=${encodeURI(utm[key])}`).join('&')}`
+      : '');
+  }
 
-  const addStyles = () => {
+  _addStyles() {
     const el = document.createElement('link');
     el.id = 'nebenan_styles';
     el.type = 'text/css';
     el.rel = 'stylesheet';
-    el.setAttribute('href', `https://nebenan.de/iframe/main.css?v=${version}`);
+    el.setAttribute('href', `${this.config.host}/iframe/main-${__VERSION}.css`);
 
     return el;
   }
 
-  const createIFrame = (config) => {
-    const UTM = getUTM(config.utm);
+  _createIFrame() {
+    const host = this.config.host || DEFAULT_HOST;
+    const utm = this._getUTM(this.config.utm);
+    const { partner } = this.config;
+
+    if (!host || !utm || !partner) {
+      console.error("[Nebenan]: Missing required config keys 'host', 'utm' and 'partner'");
+      return;
+    }
 
     const el = document.createElement('iframe');
     el.id = 'nebenan_iframe';
-    el.setAttribute("src", `http://localhost:3001/iframable/feed/raiffeisen_neuulm${UTM}`);
+    el.setAttribute('src', `${host}/iframable/feed/${this.config.partner}${utm}`);
     el.setAttribute('frameBorder', '0');
 
     return el;
   }
 
-  const head = document.getElementsByTagName('head')[0];
-  const wrapper = document.getElementById('nebenan-widget');
+  _addClass(size) {
+    const className = BREAKPOINTS_TO_CLASS[size] || '';
 
-  if (!wrapper) {
-    console.error('[Nebenan]: can\'t find nebenan-widget container element!');
-    return;
+    if (!className || !this.wrapper.classList.contains(className)) {
+      this.wrapper.className = `${this.defaultClassNames} ${className}`;
+    }
   }
 
-  wrapper.appendChild(createIFrame(config));
-  head.appendChild(addStyles());
-}
+  _resizer(entries) {
+    for (const entry of entries) {
+      const width = entry.target.offsetWidth;
 
-Window.NebenanInit = NebenanInit;
+      if (width <= VIEWPORT_S) {
+        this._addClass(VIEWPORT_S);
+      } else if (width <= VIEWPORT_M) {
+        this._addClass(VIEWPORT_M);
+      } else if (width <= VIEWPORT_L) {
+        this._addClass(VIEWPORT_L);
+      } else {
+        this._addClass();
+      }
+    }
+  }
+
+  init() {
+    const { selector } = this.config;
+    const head = document.getElementsByTagName('head')[0];
+    this.wrapper = document.querySelector(selector || DEFAULT_WRAPPER_SELECTOR);
+    const iframe = this._createIFrame();
+
+    if (!this.wrapper) {
+      console.error('[Nebenan]: Nebenan widget wrapper element is not found');
+      return;
+    }
+
+    if (!iframe) {
+      console.error("[Nebenan]: Can't create iframe, please, check config object.");
+      return;
+    }
+
+    this.wrapper.classList.add(WRAPPER_CLASSNAME);
+    this.defaultClassNames = this.wrapper.className;
+    const ro = new ResizeObserver(this._resizer);
+    ro.observe(this.wrapper);
+    head.appendChild(this._addStyles());
+    this.wrapper.appendChild(iframe);
+  }
+}

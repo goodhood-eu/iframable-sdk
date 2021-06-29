@@ -6,13 +6,15 @@ import {
   VIEWPORT_L,
   BREAKPOINTS_TO_CLASS,
   WRAPPER_CLASSNAME,
+  CDN,
 } from './constants';
 
-export default class Nebenan {
+export default class GoodHoodSDK {
   constructor(config) {
     this.config = config;
     this.wrapper = null;
     this.defaultClassNames = '';
+    this.resizeObserver = null;
 
     this._addClass = this._addClass.bind(this);
     this._resizer = this._resizer.bind(this);
@@ -20,16 +22,16 @@ export default class Nebenan {
 
   _getUTM(utm) {
     return (utm
-      ? `?${Object.keys(utm).map((key) => `${key}=${encodeURI(utm[key])}`).join('&')}`
+      ? `?${Object.keys(utm).map((key) => `${key}=${encodeURIComponent(utm[key])}`).join('&')}`
       : '');
   }
 
   _addStyles() {
     const el = document.createElement('link');
-    el.id = 'nebenan_styles';
+    el.id = 'goodhood_styles';
     el.type = 'text/css';
     el.rel = 'stylesheet';
-    el.setAttribute('href', `${this.config.host}/iframe/main-${__VERSION}.css`);
+    el.setAttribute('href', `${CDN}/${__VERSION}/styles.css`);
 
     return el;
   }
@@ -40,12 +42,12 @@ export default class Nebenan {
     const { partner } = this.config;
 
     if (!host || !utm || !partner) {
-      console.error("[Nebenan]: Missing required config keys 'host', 'utm' and 'partner'");
+      console.error("[GoodHood]: Missing required config keys 'host', 'utm' and 'partner'");
       return;
     }
 
     const el = document.createElement('iframe');
-    el.id = 'nebenan_iframe';
+    el.id = 'goodhood_iframe';
     el.setAttribute('src', `${host}/iframable/feed/${this.config.partner}${utm}`);
     el.setAttribute('frameBorder', '0');
 
@@ -76,6 +78,10 @@ export default class Nebenan {
     }
   }
 
+  disconnectResizer() {
+    this.resizeObserver.disconnect();
+  }
+
   init() {
     const { selector } = this.config;
     const head = document.getElementsByTagName('head')[0];
@@ -83,19 +89,19 @@ export default class Nebenan {
     const iframe = this._createIFrame();
 
     if (!this.wrapper) {
-      console.error('[Nebenan]: Nebenan widget wrapper element is not found');
+      console.error('[GoodHood]: GoodHood widget wrapper element is not found');
       return;
     }
 
     if (!iframe) {
-      console.error("[Nebenan]: Can't create iframe, please, check config object.");
+      console.error("[GoodHood]: Can't create iframe, please, check config object.");
       return;
     }
 
     this.wrapper.classList.add(WRAPPER_CLASSNAME);
     this.defaultClassNames = this.wrapper.className;
-    const ro = new ResizeObserver(this._resizer);
-    ro.observe(this.wrapper);
+    this.resizeObserver = new ResizeObserver(this._resizer);
+    this.resizeObserver.observe(this.wrapper);
     head.appendChild(this._addStyles());
     this.wrapper.appendChild(iframe);
   }

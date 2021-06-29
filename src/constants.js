@@ -1,6 +1,7 @@
+export const CDN = 'https://sdk.nebenan.de/npm/nebenan-iframe-sdk';
 export const DEFAULT_HOST = 'https://nebenan.de';
-export const DEFAULT_WRAPPER_SELECTOR = '#nebenan-widget';
-export const WRAPPER_CLASSNAME = 'nebenan-widget-wrapper';
+export const DEFAULT_WRAPPER_SELECTOR = '#goodhood-widget';
+export const WRAPPER_CLASSNAME = 'goodhood-widget-wrapper';
 
 export const VIEWPORT_L = 745;
 export const VIEWPORT_M = 620;

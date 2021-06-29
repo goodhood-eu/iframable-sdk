@@ -11,9 +11,9 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: `[name]-${version}.js`,
+    filename: '[name].js',
     library: {
-      name: 'Nebenan',
+      name: 'GoodHoodSDK',
       type: 'umd',
       export: 'default',
     },
@@ -21,7 +21,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: `[name]-${version}.css`,
+      filename: '[name].css',
     }),
     new webpack.DefinePlugin({
       __VERSION: JSON.stringify(version),

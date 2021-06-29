@@ -2,22 +2,13 @@
 
 ### Example of usage:
 
-1. Add `<script src="https://nebenan.de/iframe/main-1.0.0.js"></script>` before `</head>` of each page where you want to
-   show our Iframe
-2. Add a small JS-snippet before `</body>`
+1. Add a small JS-snippet before `</body>`
 
 ```
 <script type="text/javascript">
-   (function (){
-    function _initNebenan () {
-      if (!_nebenan_initialized) {
-        new Nebenan(_nebenan_widget_config).init();
-        _nebenan_initialized = true;
-      }
-    }
-
-    // *** YOUR CONFIG HERE ***
-    var _nebenan_widget_config = {
+  !function(){
+  // ** YOUR CONFIG HERE **
+    var t = {
       partner: 'raiffeisen_neuulm',
       host: 'http://localhost:3001',
       utm: {
@@ -27,28 +18,33 @@
       }
     };
 
-    var _nebenan_initialized = _nebenan_initialized || false;
-    document.addEventListener('readystatechange', _initNebenan);
-  })()
+    var s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.src = 'https://sdk.nebenan.de/npm/nebenan-iframe-sdk/' + (t.v || 'latest') + '/main.js';
+    s.onload = function () { var e=e||!1;document.addEventListener("readystatechange",function(){e||(new GoodHoodSDK(t).init(),e=!0)}) }
+
+    document.getElementsByTagName('head')[0].appendChild(s);
+  }();
 </script>
 ```
 
-3. Add `<div id="nebenan-widget"></div>` to the place where you want to inject our iframe.  
+3. Add `<div id="goodhood-widget"></div>` to the place where you want to inject our iframe.  
    **Note:** you can change widget wrapper id\class name, but you will have to pass it in config (see `config.selector`)
 
 ### Config
 
-`_nebenan_widget_config` support keys:
+`_goodhood_config` support keys:
 
 - `utm`: key-value object. All key-value pairs will be added as a search params to iframe links (*required*)
 - `partner`: integration id, (example: `raiffeisen_neuulm`) (*required*)
-- `selector`: CSS-selector for wrapper element where iFrame should be appended. Default: `#nebenan-widget`
+- `selector`: CSS-selector for wrapper element where iFrame should be appended. Default: `#goodhood-widget`
 - `host`: Nebenan URL (default: `https://nebenan.de`)
+- `v`: SDK version (default: `latest`)
 
 **Example:**
 
 ```
-var _nebenan_widget_config = {
+var _goodhood_config = {
    partner: 'raiffeisen_neuulm',
    selector: '.nebenan',
    host: 'https://nebenan.de',
@@ -67,16 +63,15 @@ Minified snippet example:
 ```
 <script type="text/javascript">
   !function(){
-    var t = {
-      partner: 'raiffeisen_neuulm',
-      host: 'http://localhost:3001',
-      utm: {
-        utm_source: "my utm_source",
-        utm_medium: "my utm_medium",
-        utm_campaign: "my utm_campaign",
+    var e={
+      partner:"raiffeisen_neuulm",
+      host:"http://localhost:3001",
+      utm:{
+         utm_source:"my utm_source",
+         utm_medium:"my utm_medium",
+         utm_campaign:"my utm_campaign"
       }
-    };
-    var e=e||!1;document.addEventListener("readystatechange",function(){e||(new Nebenan(t).init(),e=!0)})
-  }();
+   },
+   t=document.createElement("script");t.type="text/javascript",t.src="https://sdk.nebenan.de/npm/nebenan-iframe-sdk/"+(e.v||"latest")+"/main.js",t.onload=function(){var t=t||!1;document.addEventListener("readystatechange",function(){t||(new GoodHoodSDK(e).init(),t=!0)})},document.getElementsByTagName("head")[0].appendChild(t)}();
 </script>
 ```

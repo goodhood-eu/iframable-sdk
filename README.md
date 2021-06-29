@@ -74,4 +74,8 @@ Minified snippet example:
    },
    t=document.createElement("script");t.type="text/javascript",t.src="https://sdk.nebenan.de/npm/nebenan-iframe-sdk/"+(e.v||"latest")+"/main.js",t.onload=function(){var t=t||!1;document.addEventListener("readystatechange",function(){t||(new GoodHoodSDK(e).init(),t=!0)})},document.getElementsByTagName("head")[0].appendChild(t)}();
 </script>
-```
+````  
+
+### CDN Links
+- Latest deployed https://sdk.nebenan.de/npm/nebenan-iframe-sdk/latest/main.js (+style.css)
+- Specific version: https://sdk.nebenan.de/npm/nebenan-iframe-sdk/1.0.0/main.js (+style.css)

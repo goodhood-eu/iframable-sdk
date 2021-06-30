@@ -1,0 +1,24 @@
+.goodhood-widget-wrapper {
+  max-width: 900px;
+  width: 100%;
+  height: 594px;
+  margin: 0 auto;
+  border: 1px solid #e1e1de;
+
+  &--l {
+    height: 620px;
+  }
+
+  &--m {
+    height: 639px;
+  }
+
+  &--s {
+    height: 660px;
+  }
+}
+
+#goodhood_iframe {
+  width: 100%;
+  height: 100%;
+}

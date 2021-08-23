@@ -20,9 +20,9 @@ export default class GoodHoodSDK {
     this._resizer = this._resizer.bind(this);
   }
 
-  _getUTM(utm) {
-    return (utm
-      ? `?${Object.keys(utm).map((key) => `${key}=${encodeURIComponent(utm[key])}`).join('&')}`
+  _getSearchParams(params) {
+    return (params
+      ? `?${Object.keys(params).map((key) => `${key}=${encodeURIComponent(params[key])}`).join('&')}`
       : '');
   }
 
@@ -38,17 +38,17 @@ export default class GoodHoodSDK {
 
   _createIFrame() {
     const host = this.config.host || DEFAULT_HOST;
-    const utm = this._getUTM(this.config.utm);
+    const searchParams = this._getSearchParams(this.config.params);
     const { partner } = this.config;
 
-    if (!host || !utm || !partner) {
+    if (!host || !searchParams || !partner) {
       console.error("[GoodHood]: Missing required config keys 'host', 'utm' and 'partner'");
       return;
     }
 
     const el = document.createElement('iframe');
     el.id = 'goodhood_iframe';
-    el.setAttribute('src', `${host}/iframable/feed/${this.config.partner}${utm}`);
+    el.setAttribute('src', `${host}/iframable/feed/${this.config.partner || 'public'}${searchParams}`);
     el.setAttribute('frameBorder', '0');
 
     return el;

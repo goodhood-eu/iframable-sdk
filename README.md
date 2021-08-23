@@ -11,10 +11,11 @@
     var t = {
       partner: 'raiffeisen_neuulm',
       host: 'http://localhost:3001',
-      utm: {
+      params: {
         utm_source: "my utm_source",
         utm_medium: "my utm_medium",
         utm_campaign: "my utm_campaign",
+        topic: "climate_environment_2021",
       }
     };
 
@@ -35,8 +36,8 @@
 
 `_goodhood_config` support keys:
 
-- `utm`: key-value object. All key-value pairs will be added as a search params to iframe links (*required*)
-- `partner`: integration id, (example: `raiffeisen_neuulm`) (*required*)
+- `partner`: integration id, (example: `raiffeisen_neuulm`)  If specified, then feed items will be fetched from corporations feed, otherwise, from default public feed
+- `params`: additional search parameters (utm, and \ or feed search parameters. see example)
 - `selector`: CSS-selector for wrapper element where iFrame should be appended. Default: `#goodhood-widget`
 - `host`: Nebenan URL (default: `https://nebenan.de`)
 - `v`: SDK version (default: `latest`)

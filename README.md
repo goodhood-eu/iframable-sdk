@@ -42,20 +42,20 @@
 - `host`: Nebenan URL (default: `https://nebenan.de`)
 - `v`: SDK version (default: `latest`)
 
-**Example:**
+**Example with minimum required data:**
 
 ```
 var _goodhood_config = {
    partner: 'raiffeisen_neuulm',
-   selector: '.nebenan',
-   host: 'https://nebenan.de',
-   utm: {
+   params: {
       utm_source: "my utm_source",
       utm_medium: "my utm_medium",
       utm_campaign: "my utm_campaign",
    }
 };
 ```
+
+[More examples here.](/examples)
 
 ### Additional
 
@@ -66,8 +66,7 @@ Minified snippet example:
   !function(){
     var e={
       partner:"raiffeisen_neuulm",
-      host:"http://localhost:3001",
-      utm:{
+      params:{
          utm_source:"my utm_source",
          utm_medium:"my utm_medium",
          utm_campaign:"my utm_campaign"

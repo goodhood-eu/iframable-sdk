@@ -41,14 +41,9 @@ export default class GoodHoodSDK {
     const searchParams = this._getSearchParams(this.config.params);
     const { partner } = this.config;
 
-    if (!host || !searchParams || !partner) {
-      console.error("[GoodHood]: Missing required config keys 'host', 'utm' and 'partner'");
-      return;
-    }
-
     const el = document.createElement('iframe');
     el.id = 'goodhood_iframe';
-    el.setAttribute('src', `${host}/iframable/feed/${this.config.partner || 'public'}${searchParams}`);
+    el.setAttribute('src', `${host}/iframable/feed/${partner || 'public'}${searchParams}`);
     el.setAttribute('frameBorder', '0');
 
     return el;

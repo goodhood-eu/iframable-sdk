@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>Basic example with Required config options only</title>
   <style>
     body {
       margin: 0;
@@ -16,7 +16,7 @@
 </head>
 <body>
 <div class="content">
-  <h1>Example: public feed instead of cooperation feed</h1>
+  <h1>Basic example with Required config options only</h1>
   <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
 
   <div id="goodhood-widget"></div>
@@ -28,12 +28,11 @@
 <script type="text/javascript">
   !function(){
     var t = {
-      host: 'https://bart.nebenan.de',
+      partner: 'raiffeisen_neuulm', // Cooperation ID
       params: {
-        utm_source: "basic_demo_source", // utm
-        utm_medium: "basic_demo_medium", // utm
-        utm_campaign: "basic_demo_campaign", // utm
-        topic: "climate_environment_2021", // additional params for feed filtering
+        utm_source: "basic_demo_source", // utm-param
+        utm_medium: "basic_demo_medium", // utm-param
+        utm_campaign: "basic_demo_campaign", // utm-param
       }
     };
 

@@ -1,7 +1,8 @@
 # Nebenan.de iframe SDK
 
+### Live examples:
+:surfing_man: [GHPages](https://goodhood-eu.github.io/iframable-sdk/) :surfing_woman:
 ### Example of usage:
-
 1. Add a small JS-snippet before `</body>`
 
 ```
@@ -55,7 +56,7 @@ var _goodhood_config = {
 };
 ```
 
-[More examples here.](/examples)
+[More examples here.](/docs)
 
 ### Additional
 

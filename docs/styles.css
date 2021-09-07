@@ -1,0 +1,23 @@
+html,
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+body {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.content {
+  padding: 20px;
+}
+
+a {
+  color: #a0b605;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

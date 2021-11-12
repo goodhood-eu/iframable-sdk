@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example: public feed instead of cooperation feed</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="content">
+    <h1>Example: topic related feed <em>plus</em> ordering and filter options</h1>
+    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+    <div id="goodhood-widget"></div>
+
+    <h2>Why do we use it?</h2>
+    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+    <h2>Code:</h2>
+    <pre>
+    <code>
+      &lt;script type="text/javascript"&gt;
+        !function(){
+          var t = {
+            params: {
+              utm_source: "basic_demo_source", // utm
+              utm_medium: "basic_demo_medium", // utm
+              utm_campaign: "basic_demo_campaign", // utm
+              topic: "xmas_2021", // filter for topic posts (climate_environment_2021, xmas_2021); default: undefined
+              no_biz_posts: true, // hide business/gewerbe postings (default: false)
+              no_org_posts: true, // hide organization postings (default: false)
+              no_complaints: true, // hide posts with any user complaints (default: false)
+              by_reaction_count: true, // order postings by amount of reaction (thank-you, love, etc.) desc (default: false)
+            }
+          };
+
+          var s = document.createElement('script');
+          s.type = 'text/javascript';
+          s.src = 'https://sdk.nebenan.de/npm/nebenan-iframe-sdk/' + (t.v || 'latest') + '/main.js';
+          s.onload = function () { var e=e||!1;document.addEventListener("readystatechange",function(){e||(new GoodHoodSDK(t).init(),e=!0)}) }
+
+          document.getElementsByTagName('head')[0].appendChild(s);
+        }();
+      &lt;/script&gt;
+    </code>
+  </pre>
+</div>
+
+<script type="text/javascript">
+  !function(){
+    const t = {
+      host: "https://bart.nebenan.de",
+      params: {
+        utm_source: "my utm_source",
+        utm_medium: "my utm_medium",
+        utm_campaign: "my utm_campaign",
+        topic: "xmas_2021",
+        no_biz_posts: true,
+        no_org_posts: true,
+        no_complaints: true,
+        by_reaction_count: true,
+      }
+    };
+
+    const s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.src = 'https://sdk.nebenan.de/npm/nebenan-iframe-sdk/' + (t.v || 'latest') + '/main.js';
+    s.onload = function () { var e=e||!1;document.addEventListener("readystatechange",function(){e||(new GoodHoodSDK(t).init(),e=!0)}) }
+
+    document.getElementsByTagName('head')[0].appendChild(s);
+  }();
+</script>
+</body>
+</html>

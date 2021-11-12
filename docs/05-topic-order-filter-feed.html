@@ -28,11 +28,11 @@
               utm_source: "basic_demo_source", // utm
               utm_medium: "basic_demo_medium", // utm
               utm_campaign: "basic_demo_campaign", // utm
-              topic: "xmas_2021", // additional param for topic change
-              no_biz_posts: true, // additional params to filter
-              no_org_posts: true,
-              no_complaints: true,
-              by_reaction_count: true, // additional param to order
+              topic: "xmas_2021", // filter for topic posts (climate_environment_2021, xmas_2021); default: undefined
+              no_biz_posts: true, // hide business/gewerbe postings (default: false)
+              no_org_posts: true, // hide organization postings (default: false)
+              no_complaints: true, // hide posts with any user complaints (default: false)
+              by_reaction_count: true, // order postings by amount of reaction (thank-you, love, etc.) desc (default: false)
             }
           };
 
@@ -59,8 +59,8 @@
         topic: "xmas_2021",
         no_biz_posts: true,
         no_org_posts: true,
-        by_reaction_count: false,
         no_complaints: true,
+        by_reaction_count: true,
       }
     };
 
